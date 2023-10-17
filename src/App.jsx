@@ -1,20 +1,17 @@
 import React from 'react';
 import './App.css';
-import Explorer from './components/Explorer';
+import Explorer from './components/Explorer.jsx';
 // import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import axios from 'axios';
-import { Button, Form } from 'react-bootstrap';
+import { Button,Container, Form } from 'react-bootstrap';
 
-
-
-const API_KEY = import.meta.env.VITE_LOCATIONIQ_API_KEY;
 
 class App extends React.Component {
-  constructor () {
-    super ();
+  constructor (props) {
+    super (props);
       this.state= {
-        displayContent: false,
         searchQuery: '',
+        displayContent: false,
         location: {},
       }
     }
@@ -25,23 +22,22 @@ setSearchQuery = (query) => {
 }
   handleForm = (e)=> {
     e.preventDefault();
-    axios.get(`https://us1.locationiq.com/v1/search?key=${API_KEY}&q=${this.state.searchQuery}&format=json`)
+    axios.get(`https://us1.locationiq.com/v1/search?key=${import.meta.env.VITE_LOCATIONIQ_API_KEY}&q=${this.state.searchQuery}&format=json`)
     .then(response => {
-      console.log('success', response.data);
-      this.setState({ location: response.data[0], displayContent: true });
+      let city = response.data[0];
+      console.log('success', response.data[0]);
+      this.setState({ location: city, displayContent: true });
+      // return axios
+      // .get( )
     }) .catch(error =>{
       console.log('error', error);
     });
   }
-  handleChange = (e) => {
-    this.setState({searchQuery: e.target.value})
 
-  }
 render() {
-  console.log('CITY EXPLORER', this.state);
   return (
     <>
-      <header>
+      <Container>
         <h1> Welcome to City Explorer</h1>
 
         {/* {this.state.searchQuery 
@@ -49,23 +45,29 @@ render() {
         : <p>Please Enter A Valid Location</p>
         } */}
           <Form onSubmit={this.handleForm}>
-            <input 
+            <Form.Control
+              onChange={(e) => this.setState({searchQuery: e.target.value})}
               type= 'text'
               name= 'city'
               placeholder="Enter City Name"
-              onChange={this.handleChange} />
+             />
             <Button 
              type= 'submit'>
               Explore!
             </Button>
           </Form>
-          {this.state.location.length > 0 &&
+          {Object.keys(this.state.location).length > 0 &&
+          <>
           <Explorer
-           location ={this.state.location}
+           location = {this.state.location}
+           locationName ={this.state.location.display_name}
+           lon= {this.state.location.lon}
+           lat= {this.state.location.lat}
            query= {this.state.searchQuery}/>
+           </>
           }
 
-      </header>
+      </Container>
       </>
   )
   }
