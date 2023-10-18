@@ -4,6 +4,7 @@ import Explorer from './components/Explorer.jsx';
 // import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import axios from 'axios';
 import { Button,Container, Form } from 'react-bootstrap';
+import Alert from 'react-bootstrap/Alert';
 
 
 class App extends React.Component {
@@ -13,6 +14,7 @@ class App extends React.Component {
         searchQuery: '',
         displayContent: false,
         location: {},
+        error: null 
       }
     }
 
@@ -30,6 +32,7 @@ setSearchQuery = (query) => {
       // return axios
       // .get( )
     }) .catch(error =>{
+      this.setState({error: error});
       console.log('error', error);
     });
   }
@@ -56,6 +59,11 @@ render() {
               Explore!
             </Button>
           </Form>
+          {this.state.error && (
+            <Alert variant= 'danger'>
+              {`${this.state.error}`}
+            </Alert>
+          )}
           {Object.keys(this.state.location).length > 0 &&
           <>
           <Explorer

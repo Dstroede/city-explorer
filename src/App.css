@@ -40,3 +40,9 @@
 .read-the-docs {
   color: #888;
 }
+
+.cityMap {
+  height: 250px;
+  border: 2px solid black;
+  box-shadow: 0 4px 8px 0 black, 0 6px 20px 0 black;
+}

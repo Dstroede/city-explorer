@@ -1,7 +1,7 @@
 import React from "react";
 // import weather from '../assets/data/weather.json';
 import Container from 'react-bootstrap/Container';
-
+import Image from 'react-bootstrap/Image';
 
 class Explorer extends React.Component {
 
@@ -23,8 +23,8 @@ class Explorer extends React.Component {
                     <p>{this.props.location.display_name}</p>
                     <p> Lat: {location ? `${this.props.location.lat}`: 'no location set'}</p>
                     <p> Lon: {location ? `${this.props.location.lon}`: 'no location set'}</p>
-                    <img src={location ? cityMap : "https//paceholder.co/600x400"}
-                    alt= "map of location"></img>
+                    <Image className="cityMap" src={location ? cityMap : "https//paceholder.co/600x400"} fluid
+                    alt= "map of location"/>
                 </Container>
                 <Container>
                    {/* {weather.data.map(dailyForcast => {
