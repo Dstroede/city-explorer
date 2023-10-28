@@ -1,45 +1,31 @@
 import React from "react";
 // import weather from '../assets/data/weather.json';
-
-
-let API_KEY = import.meta.env.VITE_LOCATIONIQ_API_KEY;
+import Container from 'react-bootstrap/Container';
+import Image from 'react-bootstrap/Image';
+import Weather from "./Weather";
 
 class Explorer extends React.Component {
 
+
     render() {
+        console.log(this.props.location);
 
-        let { location } = this.props;
-        let lat= location ? location.lat : '';
-        console.log(lat);
-        let lon= location ? location.lon : '';
-        console.log(lon);
-        let cityMap = `https://maps.locationiq/v3/staticmap?key=${API_KEY}&center=${lat},${lon}$zoom=9`;
-
+        let cityMap = `https://maps.locationiq.com/v3/staticmap?key=${import.meta.env.VITE_LOCATIONIQ_API_KEY}&center=${this.props.location.lat},${this.props.location.lon}$zoom=9`;
+        console.log(cityMap);
         return (
             <main>
-                
-                <section>
-                    <div className="card" style={{width: '30rem'}}>
-                        <img className="card-img-top" src={location ? cityMap : "https//paceholder.co/600x400"} alt="map of location"/>
-                            <div className="card-body">
-                                <h3 className="card-title">Map</h3>
-                                <p className="card-text">{this.props.query}</p>
-                            </div>
-                            <ul className="list-group list-group-flush">
-                                <li className="list-group-item">Lattitude = {this.props.location.lat}</li>
-                                <li className="list-group-item">Longitude = {this.props.location.lon}</li>
-                                <li className="list-group-item">Weather</li>
-                            </ul>
-                    </div>
-                </section>
-                <section>
-                   {/* {weather.data.map(dailyForcast => {
-                        <li key= {index}>
-                            <p>{dailyForecast.datetime}</p>
-                            <p>{dailyForecast.temp}</p>
-                        </li>
-                    })}  */}
-                </section>
+                {/* <Link to="/">Go Home</Link> */}
+                <Container>
+                    <h2> Maps</h2>
+                    <p>{this.props.location.display_name}</p>
+                    <p> Lat: {location ? `${this.props.location.lat}`: 'no location set'}</p>
+                    <p> Lon: {location ? `${this.props.location.lon}`: 'no location set'}</p>
+                    <Image className="cityMap" src={location ? cityMap : "https//paceholder.co/600x400"} fluid
+                    alt= "map of location"/>
+                </Container>
+                <Container>
+                   <Weather forecast= {this.props.forecast}/>
+                </Container>
             </main>
         )
     }
