@@ -14,7 +14,8 @@ class App extends React.Component {
         searchQuery: '',
         displayContent: false,
         location: {},
-        error: null 
+        error: null, 
+        weather: [],
       }
     }
 
@@ -28,25 +29,25 @@ setSearchQuery = (query) => {
     .then(response => {
       let city = response.data[0];
       console.log('success', response.data[0]);
-      this.setState({ location: city, displayContent: true });
-      // return axios
-      // .get( )
+      this.setState({ location: city, displayContent: true, error: null });
+      this.showWeather(city.lat, city.lon)
     }) .catch(error =>{
       this.setState({error: error});
       console.log('error', error);
     });
   }
 
+  showWeather = async (lat, lon) => {
+    console.log(lat, lon);
+    const res = await axios.get(`http://localhost:3001/weather?lat=${lat}&lon=${lon}`)
+    console.log('here is res data', res.data)
+    this.setState({weather: res.data})
+  }
 render() {
   return (
     <>
       <Container>
         <h1> Welcome to City Explorer</h1>
-
-        {/* {this.state.searchQuery 
-        ? <Explorer /> 
-        : <p>Please Enter A Valid Location</p>
-        } */}
           <Form onSubmit={this.handleForm}>
             <Form.Control
               onChange={(e) => this.setState({searchQuery: e.target.value})}
@@ -71,10 +72,15 @@ render() {
            locationName ={this.state.location.display_name}
            lon= {this.state.location.lon}
            lat= {this.state.location.lat}
-           query= {this.state.searchQuery}/>
+           query= {this.state.searchQuery}
+           forecast= {this.state.weather}
+           />
            </>
           }
+          <>
 
+
+          </>
       </Container>
       </>
   )
