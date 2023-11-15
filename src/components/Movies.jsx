@@ -2,19 +2,19 @@ import React from "react";
 import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
 
-class Weather extends React.Component {
+class Movies extends React.Component {
 
   render() {
-    let forecasts = this.props.forecast;
-    console.log('xxxxx', forecasts);
+    let movieTitles = this.props.flix;
+    console.log('This log should return movie titles', movieTitles);
     return (
         <>
             <Container>
-                <h2> The Weather: </h2>
+                <h2> Movies Related To {this.props.location}</h2>
                 <ListGroup >
-                    {forecasts.map((forecast, index) => (
+                    {movieTitles.map((title, index) => (
                         <ListGroup.Item key={index}>
-                            {forecast.date} Feels Like: {forecast.temp}°C {forecast.weather.description}
+                            {title}
                         </ListGroup.Item>
                     ))}
                 </ListGroup>
@@ -24,4 +24,4 @@ class Weather extends React.Component {
         )
     }
 }
-export default Weather
+export default Movies
