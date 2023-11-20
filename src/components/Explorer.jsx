@@ -28,7 +28,7 @@ class Explorer extends React.Component {
                    <Weather forecast= {this.props.forecast}/>
                 </Container>
                 <Container>
-                   <Movies flix= {this.props.flix}/>
+                   <Movies movies= {this.props.movies}/>
                 </Container>
             </main>
         )

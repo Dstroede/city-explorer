@@ -53,12 +53,13 @@ class App extends React.Component {
   }
 
   showMovies = async (searchQuery) => {
-    const resMov = await axios.get(`http://localhost:3001/movies?searchQuery=${searchQuery}`)
+    const resMov = await axios.get(`http://localhost:3001/movies?searchQuery=${searchQuery}&page=1`)
+    console.log('here is resMov')
     const movieData = resMov.data;
-    console.log('++++++++', movieData)
     this.setState({
       movies: [movieData]
     });
+    console.log('here is resMov.data', this.state.movieData)
   }
   render() {
     return (
@@ -91,7 +92,7 @@ class App extends React.Component {
                 lat={this.state.location.lat}
                 query={this.state.searchQuery}
                 forecast={this.state.weather}
-                flix= {this.state.movies}
+                movies= {this.state.movies}
               />
             </>
           }
