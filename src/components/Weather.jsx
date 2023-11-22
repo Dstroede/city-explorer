@@ -9,7 +9,7 @@ class Weather extends React.Component {
     console.log('xxxxx', forecasts);
     return (
         <>
-            <Container>
+            <Container style={{ marginTop: '5rem', marginBottom: '5rem'}}>
                 <h2> The Weather: </h2>
                 <ListGroup >
                     {forecasts.map((forecast, index) => (
