@@ -16,6 +16,7 @@ class App extends React.Component {
       location: {},
       error: null,
       weather: [],
+      movies: []
     }
   }
 
@@ -30,6 +31,7 @@ class App extends React.Component {
         let city = response.data[0];
         this.setState({ location: city, displayContent: true, error: null });
         this.showWeather(city.lat, city.lon)
+        this.showMovies(this.state.searchQuery)
       }).catch(error => {
         if (error.response) {
           console.log(error.response.data);
@@ -41,8 +43,23 @@ class App extends React.Component {
   }
 
   showWeather = async (lat, lon) => {
-    const res = await axios.get(`http://localhost:3001/weather?lat=${lat}&lon=${lon}`)
-    this.setState({ weather: res.data })
+    const res = await axios.get(`${import.meta.env.SERVER}/weather?lat=${lat}&lon=${lon}`)
+    const weatherData = res.data;
+    console.log(weatherData);
+    this.setState({
+      weather: [weatherData]
+    });
+    console.log(this.state.weather)
+  }
+
+  showMovies = async (searchQuery) => {
+    const resMov = await axios.get(`${import.meta.env.SERVER}/movies?searchQuery=${searchQuery}&page=1`)
+    console.log('here is resMov')
+    const movieData = resMov.data;
+    this.setState({
+      movies: movieData
+    });
+    console.log('here is resMov.data', movieData)
   }
   render() {
     return (
@@ -75,6 +92,7 @@ class App extends React.Component {
                 lat={this.state.location.lat}
                 query={this.state.searchQuery}
                 forecast={this.state.weather}
+                movies= {this.state.movies}
               />
             </>
           }
