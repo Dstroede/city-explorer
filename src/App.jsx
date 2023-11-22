@@ -43,7 +43,7 @@ class App extends React.Component {
   }
 
   showWeather = async (lat, lon) => {
-    const res = await axios.get(`${import.meta.env.SERVER}/weather?lat=${lat}&lon=${lon}`)
+    const res = await axios.get(`${import.meta.env.VITE_SERVER_URL}/weather?lat=${lat}&lon=${lon}`)
     const weatherData = res.data;
     console.log(weatherData);
     this.setState({
@@ -53,7 +53,7 @@ class App extends React.Component {
   }
 
   showMovies = async (searchQuery) => {
-    const resMov = await axios.get(`${import.meta.env.SERVER}/movies?searchQuery=${searchQuery}&page=1`)
+    const resMov = await axios.get(`${import.meta.env.VITE_SERVER_URL}/movies?searchQuery=${searchQuery}&page=1`)
     console.log('here is resMov')
     const movieData = resMov.data;
     this.setState({
