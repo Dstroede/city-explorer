@@ -1,5 +1,4 @@
 import React from "react";
-// import weather from '../assets/data/weather.json';
 import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
 import Weather from "./Weather";
@@ -15,7 +14,6 @@ class Explorer extends React.Component {
         console.log(cityMap);
         return (
             <>
-                {/* <Link to="/">Go Home</Link> */}
                 <Container>
                     <h2> Maps</h2>
                     <p>{this.props.location.display_name}</p>
@@ -27,9 +25,7 @@ class Explorer extends React.Component {
                 <Container>
                    <Weather forecast= {this.props.forecast}/>
                 </Container>
-                {/* <Container> */}
                    <Movies movies= {this.props.movies}/>
-                {/* </Container> */}
             </>
         )
     }

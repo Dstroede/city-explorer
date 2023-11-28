@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import Explorer from './components/Explorer.jsx';
-// import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import axios from 'axios';
 import { Button, Container, Form } from 'react-bootstrap';
 import Alert from 'react-bootstrap/Alert';
@@ -66,7 +65,8 @@ class App extends React.Component {
       <>
         <Container>
           <h1> Welcome to City Explorer</h1>
-          <Form onSubmit={this.handleForm}>
+          <Form onSubmit={this.handleForm}
+          style={{ marginTop: '2rem', marginBottom: '2rem'}}>
             <Form.Control
               onChange={(e) => this.setState({ searchQuery: e.target.value })}
               type='text'
@@ -74,7 +74,8 @@ class App extends React.Component {
               placeholder="Enter City Name"
             />
             <Button
-              type='submit'>
+              type='submit'
+              style={{ marginTop: '2rem'}}>
               Explore!
             </Button>
           </Form>
